@@ -323,8 +323,8 @@ app.post('/dodaj-u-korpu', checkNotAuthenticated, (req, res, next) => {
         ciphers:'SSLv3'
       },
       auth: {
-        user: 'sobo_imran@outlook.com',
-        pass: 'nodenode321'
+        user: '',
+        pass: ''
       }
     });
 
