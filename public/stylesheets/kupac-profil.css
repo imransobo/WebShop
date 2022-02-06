@@ -1,0 +1,102 @@
+
+
+body {
+  background-image: url("https://wallpaperbat.com/img/514477-solid-black-wallpaper-black-background-wallpaper-plain-black-wallpaper.png");
+  background-repeat: repeat;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  border: 0;
+  padding: 0px;
+  margin: 0px;
+}
+
+a {
+  color: #00B7FF;
+}
+
+p {
+  color: white;
+}
+
+.mojProfil {
+  background-color: gray;
+  text-align: center;
+  width: 600px;
+  padding: 7% 0 0;
+  margin: auto;
+}
+
+.profilnaSlika {
+  padding: 19px;
+}
+
+.tekst {
+  padding: 10px;
+  color: white;
+}
+
+.mojProfil-edit{
+  padding: 50px;
+  display: inline-block;
+}
+
+
+.login{
+  width: 360px;
+  padding: 3% 0 0;
+  margin: auto;
+}
+
+input {
+  text-align: center;
+}
+#login-forma {
+  border-radius: 25px;
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+
+}
+
+#toggleV {
+  margin-top: 15px;
+}
+
+#dugme {
+  margin-top: 15px;
+}
+
+#dugme {
+  transition-duration: 0.4s;
+}
+
+#dugme:hover {
+  background-color: white;
+  color: black;
+}
+
+.pozadina {
+  /* The image used */
+
+
+  /* Full height */
+  height: 50%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+
+
+/* s neta */
+
+
+
+

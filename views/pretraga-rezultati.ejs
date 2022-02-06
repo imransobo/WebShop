@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="/images/favicon.ico">
+    <title>WebShop || Rezultati pretrage</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+  </head>
+
+  <div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="#">WebShop</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+
+    <% if(kupci.length === 0 && trgovine.length === 0 && kategorije.length === 0 && artikli.length === 0) { %>
+      <div class="container py-5" id="pretragaError">
+        <h2 style="color: white;">Žao nam je, nismo uspjeli pronaći rezultate.</h2>
+      </div>
+    <% } %>
+
+    <% if(kupci.length > 0) { %>
+    <section>
+      <div class="container py-5">
+        <p style="color:white; text-decoration: underline;">Kupci</p>
+        <div class="row" style="padding-bottom: 50px;">
+          <% for(let i=0; i<kupci.length; i++) { %>
+            <div class="col-md-12 col-lg-4 mb-4 mb-lg-0 product-card" style="padding-top: 30px; color:white;">
+              <div class="card" style="background-color: dimgray;">
+                <div class="d-flex justify-content-between p-3">
+                  <p class="lead mb-0" style=""><%= kupci[i].username_kupac %></p>
+                  <div
+                          class="d-flex align-items-center justify-content-center "
+                          style="width: 35px; height: 35px;"
+                  >
+                    <p class="text-white mb-0 small"></p>
+                  </div>
+                </div>
+                <img    id="slikaArt"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/2048px-Solid_white.svg.png"
+                        class="card-img-top"
+                        alt="Laptopp  "
+                />
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <p class="small"><a href="#!" class="" style="color:white;"><%= kupci[i].uloga %></a></p>
+                    <p class="small text-danger"><s></s></p>
+                  </div>
+
+                  <div class="d-flex justify-content-between mb-3">
+                    <h5 class="mb-0"><%= kupci[i].ime_kupac + ' ' + kupci[i].prezime_kupac %></h5>
+                    <h5 class="mb-0" style="color:white;"></h5>
+                  </div>
+
+                  <div class="d-flex justify-content-between mb-2">
+                    <p class="mb-0" style="color:white;"><span class="fw-bold"><%= kupci[i].adresa_kupac %></span></p>
+                    <div class="ms-auto text-warning">
+                      <form action="/kupac/artikal/<%=kupci[i].id_kupac %>" method="get">
+                        <input type="hidden" name="idKupac" value="<%= kupci[i].id_kupac %>">
+                        <input class="btn btn-dark" type="submit" name="artikal" id="dugme" value="Vidi profil">
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% } %>
+
+        </div>
+      </div>
+      <% for(let i=0; i<20; i++) { %>
+        <br>
+      <% } %>
+
+    </section>
+    <% } else { for(let i=0; i<5; i++) { %>
+        <br>
+      <% } }%>
+
+    <% if(trgovine.length > 0) { %>
+    <section>
+      <div class="container py-5">
+          <p style="color:white; text-decoration: underline;">Trgovine</p>
+          <div class="row" style="padding-bottom: 50px;">
+            <% for(let i=0; i<trgovine.length; i++) { %>
+              <div class="col-md-12 col-lg-4 mb-4 mb-lg-0 product-card" style="padding-top: 30px; color:white;">
+                <div class="card" style="background-color: dimgray;">
+                  <div class="d-flex justify-content-between p-3">
+                    <p class="lead mb-0" style=""><%= trgovine[i].naziv_trg %></p>
+                    <div
+                            class="d-flex align-items-center justify-content-center "
+                            style="width: 35px; height: 35px;"
+                    >
+                      <p class="text-white mb-0 small"></p>
+                    </div>
+                  </div>
+                  <img    id="slikaArt"
+                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/2048px-Solid_white.svg.png"
+                          class="card-img-top"
+                          alt="Laptopp  "
+                  />
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <p class="small"><a href="#!" class="" style="color:white;"><%= trgovine[i].telefon_trg %></a></p>
+                      <p class="small text-danger"><s></s></p>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-3">
+                      <h5 class="mb-0"><%= trgovine[i].email_trg %></h5>
+                      <h5 class="mb-0" style="color:white;"></h5>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2">
+                      <p class="mb-0" style="color:white;"><span class="fw-bold"><%= trgovine[i].sjediste_trg %></span></p>
+                      <div class="ms-auto text-warning">
+                        <form action="/kupac/<%=trgovine[i].naziv_trg %>" method="get">
+                          <input type="hidden" name="idKupac" value="<%= trgovine[i].id_trg %>">
+                          <input class="btn btn-dark" type="submit" name="artikal" id="dugme" value="Vidi radnju">
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          </div>
+      </div>
+      <% for(let i=0; i<20; i++) { %>
+        <br>
+      <% } %>
+
+    </section>
+    <% } else { for(let i=0; i<5; i++) { %>
+      <br>
+    <% } }%>
+
+
+    <% if(artikli.length > 0) { %>
+    <section>
+      <div class="container py-5">
+        <p style="color:white; text-decoration: underline;">Artikli</p>
+        <div class="row" style="padding-bottom: 50px;">
+          <% for(let i=0; i<artikli.length; i++) { %>
+            <div class="col-md-12 col-lg-4 mb-4 mb-lg-0 product-card" style="padding-top: 30px; color:white;">
+              <div class="card" style="background-color: dimgray;">
+                <div class="d-flex justify-content-between p-3">
+                  <p class="lead mb-0" style=""><%= artikli[i].naziv %></p>
+                  <div
+                          class="d-flex align-items-center justify-content-center "
+                          style="width: 35px; height: 35px;"
+                  >
+                    <p class="text-white mb-0 small"></p>
+                  </div>
+                </div>
+                <img    id="slikaArt"
+                        src="/upload/<%= artikli[i].slika %>"
+                        class="card-img-top"
+                        alt="Laptopp  "
+                />
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <p class="small"><a href="#!" class="" style="color:white;"><%= artikli[i].kategorija_art %></a></p>
+                    <p class="small text-danger"><s></s></p>
+                  </div>
+
+                  <div class="d-flex justify-content-between mb-3">
+                    <h5 class="mb-0">Cijena</h5>
+                    <h5 class="mb-0" style="color:white;"><%= artikli[i].cijena %> KM</h5>
+                  </div>
+
+                  <div class="d-flex justify-content-between mb-2">
+                    <p class="mb-0" style="color:white;">Dostupno: <span class="fw-bold"><%= artikli[i].kolicina%></span></p>
+                    <div class="ms-auto text-warning">
+                      <form action="/kupac/artikal/<%=artikli[i].id_artikla %>" method="get">
+                        <input type="hidden" name="<%= artikli[i].id_artikla %>" value="<%= artikli[i].naziv %>">
+                        <input class="btn btn-dark" type="submit" name="artikal" id="dugme" value="Detalji">
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </section>
+    <% for(let i=0; i<20; i++) { %>
+      <br>
+      <% } %>
+    <% } else { for(let i=0; i<5; i++) { %>
+      <br>
+    <% } }%>
+
+    <% if(kategorije.length > 0) { %>
+    <section>
+      <div class="container py-5">
+        <p style="color:white; text-decoration: underline;">Kategorije</p>
+        <div class="row" style="padding-bottom: 50px;">
+          <% for(let i=0; i<kategorije.length; i++) { %>
+            <div class="col-md-12 col-lg-4 mb-4 mb-lg-0 product-card" style="padding-top: 30px; color:white;">
+              <div class="card" style="background-color: dimgray;">
+                <div class="d-flex justify-content-between p-3">
+                  <p class="lead mb-0" style=""><%= kategorije[i].naziv %></p>
+                  <div
+                          class="d-flex align-items-center justify-content-center "
+                          style="width: 35px; height: 35px;"
+                  >
+                    <p class="text-white mb-0 small"></p>
+                  </div>
+                </div>
+                <img    id="slikaArt"
+                        src="/upload/<%= kategorije[i].slika %>"
+                        class="card-img-top"
+                        alt="Laptopp  "
+                />
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <p class="small"><a href="#!" class="" style="color:white;"><%= kategorije[i].kategorija_art %></a></p>
+                    <p class="small text-danger"><s></s></p>
+                  </div>
+
+                  <div class="d-flex justify-content-between mb-3">
+                    <h5 class="mb-0">Cijena</h5>
+                    <h5 class="mb-0" style="color:white;"><%= kategorije[i].cijena %> KM</h5>
+                  </div>
+
+                  <div class="d-flex justify-content-between mb-2">
+                    <p class="mb-0" style="color:white;">Dostupno: <span class="fw-bold"><%= kategorije[i].kolicina%></span></p>
+                    <div class="ms-auto text-warning">
+                      <form action="/kupac/artikal/<%=kategorije[i].id_artikla %>" method="get">
+                        <input type="hidden" name="<%= kategorije[i].id_artikla %>" value="<%= kategorije[i].naziv %>">
+                        <input class="btn btn-dark" type="submit" name="artikal" id="dugme" value="Detalji">
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% } %>
+
+        </div>
+      </div>
+      <% for(let i=0; i<20; i++) { %>
+        <br>
+      <% } %>
+
+    </section>
+    <% }  else { for(let i=0; i<5; i++) { %>
+      <br>
+    <% } }%>
+
+
+
+
+
+
+
+  </div>
+
+
+
+
+  </body>
+</html>

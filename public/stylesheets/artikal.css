@@ -1,0 +1,221 @@
+body {
+    background-image: url("https://wallpaperbat.com/img/514477-solid-black-wallpaper-black-background-wallpaper-plain-black-wallpaper.png");
+    background-repeat: repeat;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+}
+
+a {
+    color: #00B7FF;
+}
+
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px;
+    display: flex;
+}
+
+
+.left-column {
+    width: 65%;
+    position: relative;
+}
+
+.right-column {
+    width: 35%;
+    margin-top: 60px;
+}
+
+/* Left Column */
+.left-column img {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.left-column img.active {
+    opacity: 1;
+}
+
+.product-description {
+    border-bottom: 1px solid #E1E8EE;
+    margin-bottom: 20px;
+}
+.product-description span {
+    font-size: 12px;
+    color: #358ED7;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.product-description h1 {
+    font-weight: 300;
+    font-size: 52px;
+    color: #43484D;
+    letter-spacing: -2px;
+}
+.product-description p {
+    font-size: 16px;
+    font-weight: 300;
+    color: #86939E;
+    line-height: 24px;
+}
+
+.product-price {
+    display: flex;
+    align-items: center;
+}
+
+.product-price span {
+    font-size: 26px;
+    font-weight: 300;
+    color: #43474D;
+    margin-right: 20px;
+}
+
+.cart-btn {
+    display: inline-block;
+    background-color: #7DC855;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 12px 30px;
+    transition: all .5s;
+}
+
+.cable-choose {
+    margin-bottom: 20px;
+}
+
+.cable-choose button {
+    border: 2px solid #E1E8EE;
+    border-radius: 6px;
+    padding: 13px 20px;
+    font-size: 14px;
+    color: #5E6977;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.cable-choose button:hover,
+.cable-choose button:active,
+.cable-choose button:focus {
+    border: 2px solid #86939E;
+    outline: none;
+}
+
+.cable-config {
+    border-bottom: 1px solid #E1E8EE;
+    margin-bottom: 20px;
+}
+
+.cable-config a {
+    color: #358ED7;
+    text-decoration: none;
+    font-size: 12px;
+    position: relative;
+    margin: 10px 0;
+    display: inline-block;
+}
+.cart-btn:hover {
+    background-color: #64af3d;
+}
+
+#slikaArtikla {
+    border: 25px;
+    width: 800px;
+}
+
+.firma{
+    width: 160px;
+    height: 160px;
+
+    position: absolute;
+    top: 0;
+    bottom: 300px;
+    left: 1500px;
+    right: 0;
+
+    margin: auto;
+}
+
+.card_image {
+    height: 500px;
+    width: 500px;
+    border-radius: 25px;
+}
+
+.navbar-brand {
+    padding-left: 20px;
+}
+
+
+#podaciArtikal {
+    color: white;
+    font-weight: 500;
+}
+
+#dugme:hover {
+    background-color: white;
+    color: black;
+}
+
+#naslovArtikla {
+    padding-bottom: 10px;
+    color: white;
+}
+.product {
+    display: flex;
+    padding: 60px;
+}
+
+.podaci{
+    padding-top: 10px;
+}
+
+#slikaRadnje {
+    height: 200px;
+    width: 200px;
+}
+
+#radnjaNaziv {
+    padding-top: 5px;
+    font-size: 20px;
+    color: white;
+}
+
+
+.recenzija {
+    width: 260px;
+    height: 160px;
+    display:flex;
+    padding-left: 60px;
+    position: absolute;
+
+}
+
+#dugmeOcjena {
+    margin-top: 7px;
+}
+
+textarea {
+    resize: none;
+}
+
+
+/*radnja */
+

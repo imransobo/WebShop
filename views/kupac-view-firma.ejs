@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebShop || Radnja</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+      <link rel="icon" href="/images/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+
+
+  <div class="container" id="welcome">
+      <h1 class="display-4 kupac-view-firma-naslov"><a href="/"></a></h1>
+      <% for(let i=0; i<radnja.length; i++) { %>
+        <% if(radnja[i].profilna === "" || typeof radnja[i].profilna === null) { %>
+              <div class="text-center"> <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" class="rounded-circle"></div>
+          <% } %>
+      <div class="text-center"> <img src="/upload/<%= radnja[i].profilna %>" width="100" class="rounded-circle">
+      <p><%= radnja[i].naziv_trg %></p>
+      <p>Email: <%= radnja[i].email_trg %></p>
+      <p>Adresa: <%= radnja[i].sjediste_trg %></p>
+      <p>Telefon: <%= radnja[i].telefon_trg %></p>
+      <% } %>
+      <form action="/kupac/sortiraj" method="post">
+          <label for="cars"></label>
+          <select name="opcije" id="opcije">
+              <option name="izbor" value="Cijeni">Cijeni</option>
+              <option name="izbor" value="Imenu">Imenu</option>
+          </select>
+          <% if(typeof firma != 'undefined') { %>
+              <input hidden="hidden" type="text" name="naziv" value="<%= JSON.stringify(firma) %>">
+          <% } %>
+          <input class="btn btn-dark" id="dugme" type="submit" value="Sortiraj po">
+      </form>
+      <button class="btn btn-dark" id="myBtn">Prikaži recenzije</button>
+  </div>
+
+
+
+
+
+  <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+          <div class="modal-header bg-dark">
+              <span class="close">&times;</span>
+              <h2 style="left:0;">Recenzije</h2>
+          </div>
+          <% if(recenzije.length > 0) { %>
+              <% for(let i=0; i<recenzije.length; i++) { %>
+              <div class="modal-body">
+                  <div class="rec bg-dark">
+                      <p id="tekst" style="padding-left: 5px;">Username: <%= recenzije[i].username_kupac %></p>
+                      <p id="tekst" style="padding-left: 5px;">Komentar: <%= recenzije[i].komentar %></p>
+                      <p id="tekst" style="padding-left: 5px;">Ocjena: <%= recenzije[i].ocjena%></p>
+                  </div>
+              </div>
+              <% } %>
+          <% } else { %>
+              <div class="modal-body">
+                  <p>Ova trgovina nema recenzija.</p>
+              </div>
+
+          <% } %>
+      </div>
+
+  </div>
+
+
+
+
+  <section>
+      <div class="container py-5">
+          <p style="color:white; text-decoration: underline;">Svi artikli radnje</p>
+          <div class="row" style="padding-bottom: 50px;">
+              <% for(let i=0; i<podaci.length; i++) { %>
+                  <div class="col-md-12 col-lg-4 mb-4 mb-lg-0 product-card" style="padding-top: 30px; color:white;">
+                      <div class="card" style="background-color: dimgray;">
+                          <div class="d-flex justify-content-between p-3">
+                              <p class="lead mb-0" style=""><%= podaci[i].naziv %></p>
+                              <div
+                                      class="d-flex align-items-center justify-content-center "
+                                      style="width: 35px; height: 35px;"
+                              >
+                                  <p class="text-white mb-0 small"></p>
+                              </div>
+                          </div>
+                          <img    id="slikaArt"
+                                  src="/upload/<%= podaci[i].slika %>"
+                                  class="card-img-top"
+                                  alt="Laptopp  "
+                          />
+                          <div class="card-body">
+                              <div class="d-flex justify-content-between">
+                                  <p class="small"><a href="#!" class="" style="color:white;"><%= podaci[i].kategorija_art  %></a></p>
+                                  <p class="small text-danger"><s></s></p>
+                              </div>
+
+                              <div class="d-flex justify-content-between mb-3">
+                                  <h5 class="mb-0">Cijena</h5>
+                                  <h5 class="mb-0" style="color:white;"><%= podaci[i].cijena %> KM</h5>
+                              </div>
+
+                              <div class="d-flex justify-content-between mb-2">
+                                  <p class="mb-0" style="color:white;">Dostupno: <span class="fw-bold"><%= podaci[i].kolicina%></span></p>
+                                  <div class="ms-auto text-warning">
+                                      <form action="/kupac/artikal/<%=podaci[i].id_artikla %>" method="get">
+                                          <input type="hidden" name="<%= podaci[i].id_artikla %>" value="<%= podaci[i].naziv %>">
+                                          <input class="btn btn-dark" type="submit" name="artikal" id="dugme" value="Detalji">
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              <% } %>
+
+          </div>
+      </div>
+  </section>
+
+  <button class="open-button" onclick="openForm()">Ocijeni trgovinu</button>
+
+  <div class="form-popup" id="myForm">
+      <form action="/kupac/ostaviRecenziju" class="form-container" method="post">
+          <h1>Recenzija</h1>
+          <label for="email"><b>Komentar</b></label>
+          <input type="text" placeholder="Ocijenite radnju" name="komentar">
+          <input hidden="hidden" name="firma" value="<%= JSON.stringify(firma).valueOf()%>">
+          <label for="selectForma"><b>Ocjena</b></label>
+          <select class="form-select" name="izbor" id="selectForma">
+              <% for(let i=1; i<=5; i++) {   %>
+                  <option name="izbor" value="<%= i %>"><%= i %></option>
+              <% }%>
+          </select>
+
+          <button class="btn btn-success" type="submit" class="btn">Pošalji</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Izađi</button>
+      </form>
+  </div>
+
+
+
+
+
+  <script>
+      function openForm() {
+          document.getElementById("myForm").style.display = "block";
+      }
+
+      function closeForm() {
+          document.getElementById("myForm").style.display = "none";
+      }
+
+      var modal = document.getElementById("myModal");
+
+      // Get the button that opens the modal
+      var btn = document.getElementById("myBtn");
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+
+      // When the user clicks the button, open the modal
+      btn.onclick = function() {
+          modal.style.display = "block";
+      }
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+          modal.style.display = "none";
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+      }
+
+  </script>
+
+
+
+
+
+
+  </body>
+</html>

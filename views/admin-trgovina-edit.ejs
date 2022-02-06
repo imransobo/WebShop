@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebShop || Admin</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/kupac-profil.css' />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  </head>
+
+  <body>
+
+
+    <div class="login">
+        <form id="login-forma" action="/admin/urediR" method="POST">
+            <h5 id="forma-naslov">Uredite podatke</h5>
+            <% for(let i=0; i<trgovina.length; i++) { %>
+            <br>
+            <div class="form-group">
+                <input type="text" class="form-control" id="tekst" name="ime" value="<%= trgovina[i].naziv_trg %>" >
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="text" class="form-control" id="tekst" name="telefon" value="<%= trgovina[i].telefon_trg %>" >
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="text" class="form-control" id="tekst" name="sjediste" value="<%= trgovina[i].sjediste_trg %>" >
+            </div>
+                <input hidden="hidden" name="idT" value="<%= trgovina[i].id_trg %>">
+            <button type="submit" class="btn btn-dark" id="dugme">Spasi</button>
+            <% } %>
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebShop || Chat</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/chat.css' />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  </head>
+  <body>
+
+  <script src="public/javascripts/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+
+      const roomId = '<%= roomId %>';
+      console.log(roomId);
+
+      const user = '<%= userr %>';
+      console.log(user);
+
+
+
+
+    </script>
+
+  <h2>Soba <%= roomId%></h2>
+  <div class="ukucajPoruku">
+    <form action="">
+      <input type="text" placeholder="Poruka">
+    </form>
+  </div>
+
+  <div id="text-box">
+    <% for(let i=0; i<poruke.length; i++) { %>
+    <% if(poruke[i].user_receiver === userr ) {%>
+        <div class="container lighter">
+          <p id="msgtxt"><%= poruke[i].poruka %></p>
+          <span class="time-right">11:00</span>
+        </div>
+        <% }%>
+      <% if(poruke[i].user_sender === userr) { %>
+          <div class="container darker">
+            <p id="msgtxt1"><%= poruke[i].poruka %></p>
+            <span class="time-right">11:00</span>
+
+            // ako je posiljaoc == logovan korisnik, onda poruku floatas desno
+            // ako je primaco === logovan, onda floatas poruku lijevo
+          </div>
+
+        <% } %>
+    <% } %>
+  </div>
+
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      const form = document.querySelector('form');
+      const input = document.querySelector('input');
+      const text_box = document.getElementById('text-box');
+
+
+      const to = '<%= to %>';
+
+
+
+      console.log(to);
+
+      window.onload = () => {
+        socket.emit('join', roomId);
+      }
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        if(input.value) {
+          const element = document.createElement('p');
+          const div = document.createElement('div');
+          div.classList.add('container', 'lighter');
+          div.style.height = "70px";
+          const p = document.createElement('p');
+          p.id = "msgtxt";
+          p.innerHTML = `<b>Vi: </b>${input.value}`;
+          div.append(p);
+
+          const span = document.createElement('span');
+          span.classList.add('time-right');
+          div.append(span);
+          element.innerHTML = `<b>Ti: </b>${input.value}`;
+
+          //text_box.append(element);
+          text_box.append(div);
+
+          socket.emit('message', {content:input.value, roomId:roomId});
+          input.value = '';
+
+        }
+      });
+
+      socket.on('message', msg => {
+        const element = document.createElement('p');
+        element.classList.add("desni");
+        element.innerHTML = `<b><%= to%> : </b>${msg}`;
+        element.style.textAlign = "right";
+
+        const div = document.createElement('div');
+        div.classList.add('container', 'darker');
+        div.style.height = "70px";
+        const p = document.createElement('p');
+        p.id = "msgtxt1";
+        p.innerHTML = `<b><%= to %> : </b>${msg}`;
+        div.append(p);
+
+
+
+        //text_box.append(element);
+        text_box.append(div);
+
+      })
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

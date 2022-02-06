@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebShop || Dashboard</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="icon" href="/images/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+  </head>
+
+  <body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="color:white;">
+      <a class="navbar-brand" id="nav-naslov" href="#">WebShop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/shop/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/shop/chatRoom">Dopisivanje</a>
+        </li>
+        <li class="nav-item active">
+          <% for(let i=0; i<shop.length; i++) {%>
+          <a class="nav-link" href="/shop/korpa/<%= shop[i].id_trg %>">Korpa</a>
+          <% } %>
+        </li>
+        <li class="nav-item active">
+          <%for(let i=0; i<shop.length; i++) {%>
+          <a class="nav-link" href="/shop/<%= shop[i].naziv_trg %>">Profil</a>
+          <% }%>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/shop/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <div id="notifikacija">
+  </div>
+
+
+    <div class="container" id="welcome">
+      <% for(let i=0; i<shop.length; i++) {%>
+        <h3>Dobrodošli, <%= shop[i].naziv_trg %></h3>
+        <h3>Dosadašnja zarada: <%= shop[i].zarada %></h3>
+      <% }%>
+        <form class="form-group" action="/shop/unosArtikla" method="GET">
+          <input class="btn btn-dark" type="submit" id="dugme" name="submit" value="Novi artikal">
+        </form>
+    </div>
+
+
+  <section>
+    <div class="container py-5">
+      <p style="color:white; text-decoration: underline;">Vaši artikli</p>
+      <div class="row" style="padding-bottom: 50px;">
+        <% for(let i=0; i<sviArtikli.length; i++) { %>
+          <div class="col-md-12 col-lg-4 mb-4 mb-lg-0 product-card" style="padding-top: 30px; color:white;">
+            <div class="card" style="background-color: dimgray;">
+              <div class="d-flex justify-content-between p-3">
+                <p class="lead mb-0" style=""><%= sviArtikli[i].naziv %></p>
+                <div
+                        class="d-flex align-items-center justify-content-center "
+                        style="width: 35px; height: 35px;"
+                >
+                  <p class="text-white mb-0 small"></p>
+                </div>
+              </div>
+              <img    id="slikaArt"
+                      src="/upload/<%= sviArtikli[i].slika %>"
+                      class="card-img-top"
+                      alt="Laptopp  "
+              />
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <p class="small"><a href="#!" class="" style="color:white;"><%= sviArtikli[i].kategorija_art %></a></p>
+                  <p class="small text-danger"><s></s></p>
+                </div>
+
+                <div class="d-flex justify-content-between mb-3">
+                  <h5 class="mb-0">Cijena</h5>
+                  <h5 class="mb-0" style="color:white;"><%= sviArtikli[i].cijena %> KM</h5>
+                </div>
+
+                <div class="d-flex justify-content-between mb-2">
+                  <p class="mb-0" style="color:white;">Dostupno: <span class="fw-bold"><%= sviArtikli[i].kolicina%></span></p>
+                  <div class="ms-auto text-warning">
+                    <form action="/shop/artikal/<%=sviArtikli[i].id_artikla %>" method="get">
+                      <input type="hidden" name="<%= sviArtikli[i].id_artikla %>" value="<%= sviArtikli[i].naziv %>">
+                      <input class="btn btn-dark" type="submit" name="artikal" id="dugme" value="Detalji">
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% } %>
+
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js" integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js"></script>
+  <script type="text/javascript">
+    var socket = io("http://localhost:3000");
+
+    socket.on("dugmeNotif", (podaci) => {
+      $.notify("Imate novu narudžbu za: " + podaci.naziv, {
+        autoHide: false,
+        className: "success"
+      })
+    })
+
+
+
+
+
+
+  </script>
+
+
+
+  </body>
+</html>

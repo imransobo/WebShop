@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebShop || Admin Panel</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+    <link rel='stylesheet' href='/stylesheets/login.css' />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script>
+      function prikaziKupce() {
+        var x = document.getElementById("tabelaKupci");
+        var dugme = document.getElementById("dugmeKupci");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+          dugme.innerText = 'Sakrij';
+        } else {
+          x.style.display = "none";
+          dugme.innerText = 'Prikaži';
+        }
+      }
+
+      function prikaziArtikle() {
+        var x1 = document.getElementById("tabelaArtikli");
+        var dugme1 = document.getElementById("dugmeArtikli");
+        if (x1.style.display === "none") {
+          x1.style.display = "block";
+          dugme1.innerText = 'Sakrij'
+        } else {
+          x1.style.display = "none";
+          dugme1.innerText = 'Prikaži';
+        }
+      }
+
+      function prikaziNarudzbe() {
+        var x1 = document.getElementById("tabelaNarudzbe");
+        var dugme1 = document.getElementById("dugmeNarudzbe");
+        if (x1.style.display === "none") {
+          x1.style.display = "block";
+          dugme1.innerText = 'Sakrij'
+        } else {
+          x1.style.display = "none";
+          dugme1.innerText = 'Prikaži';
+        }
+      }
+
+      function prikaziTrgovine() {
+        var x1 = document.getElementById("tabelaTrgovine");
+        var dugme1 = document.getElementById("dugmeTrgovine");
+        if (x1.style.display === "none") {
+          x1.style.display = "block";
+          dugme1.innerText = 'Sakrij'
+        } else {
+          x1.style.display = "none";
+          dugme1.innerText = 'Prikaži';
+        }
+
+      }
+
+
+    </script>
+  </head>
+
+
+  <body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">WebShop - AdminPanel</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/chatRoom">Dopisivanje</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/logout">Logout</a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+    <div class="container" id="welcome">
+      <h2 id="adminPanelNaslov">Admin Panel</h2>
+    </div>
+
+    <div>
+      <canvas id="myChart" width="400" height="400" style="width:100%;max-width:600px; margin: auto"></canvas>
+    </div>
+    <script>
+      var xValues = ["Broj kupaca", "Broj radnji", "Broj artikala", "Broj narudzbi"];
+
+      var g = "<%= godineKupaca.length%>";
+      console.log(g);
+
+      var trg = "<%= brTrgovina%>";
+      var art = "<%= brArtikala%>";
+      var nar = "<%= brNarudzbi%>";
+
+      var yValues = [g, trg, art, nar];
+
+      console.log(yValues);
+
+      var barColors = [
+        "#b91d47",
+        "#00aba9",
+        "#2b5797",
+        "#e8c3b9"
+      ];
+
+      new Chart("myChart", {
+        type: "pie",
+        data: {
+          labels: xValues,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: "Statistika WebShopa"
+          }
+        }
+      });
+    </script>
+
+    <div class="tabelaKupci data">
+      <h2 id="spisak" style="color: white">Spisak svih kupaca</h2>
+      <table class="table table-bordered" id="tabelaKupci" style="color:white; display: none">
+        <thead>
+        <tr>
+          <th scope="col">Ime kupca</th>
+          <th scope="col">Prezime kupca</th>
+          <th scope="col">Username kupca</th>
+          <th scope="col">Adresa kupca</th>
+          <th scope="col">Broj kupca</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(let i=0; i<kupac.length; i++) { %>
+        <tr>
+          <form action="/admin/blokirajKupca" method="post">
+            <td><%= kupac[i].ime_kupac%></td>
+            <td><%= kupac[i].prezime_kupac%></td>
+            <td><%= kupac[i].username_kupac%></td>
+            <td><%= kupac[i].adresa_kupac%></td>
+            <td><%= kupac[i].telefon_kupac%></td>
+            <input type="hidden" name="idK" value="<%= kupac[i].id_kupac %>">
+            <td><input type="submit" class="btn btn-dark" value="Blokiraj"></td>
+          </form>
+          <form action="/admin/urediKupca" method="post">
+            <input hidden="hidden" name="urediK" value="<%= kupac[i].id_kupac %>">
+            <td><input type="submit" class="btn btn-dark" value="Uredi"></td>
+          </form>
+          <form action="/admin/obrisiKupca" method="post">
+            <input hidden="hidden" name="obrisiK" value="<%= kupac[i].id_kupac %>">
+            <td><input type="submit" class="btn btn-danger" value="Obriši"></td>
+          </form>
+        </tr>
+        <% } %>
+        </tbody>
+      </table>
+
+      <button class="btn btn-dark" id="dugmeKupci" onclick="prikaziKupce()">Prikaži</button>
+    </div>
+    <div class="tabelaArtikli data">
+      <h2 id="spisak" style="color: white">Spisak svih artikala</h2>
+      <table class="table table-bordered" id="tabelaArtikli" style="color:white; display: none">
+        <thead>
+        <tr>
+          <th scope="col">Naziv artikla</th>
+          <th scope="col">Opis artikla</th>
+          <th scope="col">Cijena artikla</th>
+          <th scope="col">Kategorija</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(let i=0; i<artikal.length; i++) { %>
+
+            <tr>
+              <form action="/admin/obrisiArtikal" method="post">
+                <td><%= artikal[i].naziv%></td>
+                <td><%= artikal[i].opis%></td>
+                <td><%= artikal[i].cijena%></td>
+                <td><%= artikal[i].kategorija_art%></td>
+                <input hidden="hidden" value="<%= artikal[i].id_artikla%>" name="idArtikla">
+                <td><input type="submit" class="btn btn-danger" value="Obriši"></td>
+              </form>
+            </tr>
+
+        <% } %>
+        </tbody>
+      </table>
+
+      <button class="btn btn-dark" id="dugmeArtikli" onclick="prikaziArtikle()">Prikaži</button>
+    </div>
+    <div class="tabelaNarudzbe data">
+      <h2 id="spisak" style="color: white">Spisak svih narudžbi</h2>
+      <table class="table table-bordered" id="tabelaNarudzbe" style="color:white; display: none">
+        <thead>
+        <tr>
+          <th scope="col">ID radnje</th>
+          <th scope="col">ID naručioca</th>
+          <th scope="col">Naziv artikla</th>
+          <th scope="col">Cijena artikla</th>
+          <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(let i=0; i<narudzba.length; i++) { %>
+          <tr>
+            <td><%= narudzba[i].id_trg%></td>
+            <td><%= narudzba[i].id_kupac%></td>
+            <td><%= narudzba[i].naziv%></td>
+            <td><%= narudzba[i].cijena%></td>
+            <td><%= narudzba[i].status%></td>
+          </tr>
+        <% } %>
+        </tbody>
+      </table>
+
+      <button class="btn btn-dark" id="dugmeNarudzbe" onclick="prikaziNarudzbe()">Prikaži</button>
+    </div>
+
+
+
+  <div class="tabelaTrgovine data">
+    <h2 id="spisak" style="color: white">Spisak svih trgovina</h2>
+    <table class="table table-bordered" id="tabelaTrgovine" style="color:white; display: none">
+      <thead>
+      <tr>
+        <th scope="col">ID radnje</th>
+        <th scope="col">Naziv radnje</th>
+        <th scope="col">Telefon radnje</th>
+        <th scope="col">Email radnje</th>
+        <th scope="col">Sjedište</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% for(let i=0; i<trgovina.length; i++) { %>
+        <tr>
+          <td><%= trgovina[i].id_trg%></td>
+          <td><%= trgovina[i].naziv_trg %></td>
+          <td><%= trgovina[i].telefon_trg %></td>
+          <td><%= trgovina[i].email_trg %></td>
+          <td><%= trgovina[i].sjediste_trg%></td>
+          <form action="/admin/blokirajRadnju" method="post">
+            <input hidden="hidden" name="idRadnje" value="<%= trgovina[i].id_trg%>">
+            <td><input type="submit" class="btn btn-danger" value="Blokiraj"></td>
+          </form>
+          <form action="/admin/urediRadnju" method="post">
+            <input hidden="hidden" name="idRadnje" value="<%= trgovina[i].id_trg%>">
+            <td><input type="submit" class="btn btn-dark" value="Uredi"></td>
+          </form>
+          <form action="/admin/obrisiRadnju" method="post">
+            <input hidden="hidden" name="idRadnje" value="<%= trgovina[i].id_trg%>">
+            <td><input type="submit" class="btn btn-dark" value="Obriši"></td>
+          </form>
+        </tr>
+      <% } %>
+      </tbody>
+    </table>
+
+    <button class="btn btn-dark" id="dugmeTrgovine" onclick="prikaziTrgovine()">Prikaži</button>
+  </div>
+
+
+
+
+  </body>
+</html>

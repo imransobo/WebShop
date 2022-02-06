@@ -1,0 +1,88 @@
+body {
+    background-image: url("https://wallpaperbat.com/img/514477-solid-black-wallpaper-black-background-wallpaper-plain-black-wallpaper.png");
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+#welcome{
+    padding: 40px;
+    color: white;
+    text-align: center;
+}
+
+.login{
+    width: 360px;
+    padding: 3% 0 0;
+    margin: auto;
+}
+
+#login-forma {
+    border-radius: 25px;
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+
+}
+
+input {
+    text-align: center;
+}
+.navbar-brand {
+    padding-left: 15px;
+}
+
+#forma-naslov {
+    padding-top: 5px;
+}
+
+#dugme {
+    transition-duration: 0.4s;
+}
+
+#dugme:hover {
+    background-color: white;
+    color: black;
+}
+
+#welcome-naslov:hover {
+    color: gray;
+}
+
+#welcome-pr:hover {
+    color:gray;
+}
+
+/* admin */
+.data {
+    padding: 20px;
+}
+
+.zbirniPodaci {
+    padding: 20px;
+}
+
+#adminPanelNaslov:hover {
+    color: gray;
+}
+
+#spisak:hover {
+    color:gray
+}
+
+#toggleV {
+    margin-top: 15px;
+}
+
+#dugmeKupci:hover, #dugmeArtikli:hover, #dugmeNarudzbe:hover, #dugmeTrgovine:hover{
+    background-color: white;
+    color: black;
+}
+
